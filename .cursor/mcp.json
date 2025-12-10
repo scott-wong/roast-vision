@@ -1,0 +1,10 @@
+{
+    "mcpServers": {
+        "uni-app-x": {
+            "command": "bunx",
+            "args": [
+                "@dcloudio/uni-app-x-mcp"
+            ]
+        }
+    }
+}
