@@ -1,0 +1,4 @@
+---
+alwaysApply: true
+---
+1. DEBUG模式，不要加HTTP日志，微信小程序不支持。

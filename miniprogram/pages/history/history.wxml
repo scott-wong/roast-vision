@@ -1,0 +1,78 @@
+<!--history.wxml-->
+<view class="container">
+  <!-- 页面标题和操作 -->
+  <view class="header">
+    <view class="title-section">
+      <text class="page-title">历史记录</text>
+      <text class="record-count">{{isEmpty ? '暂无记录' : '共' + historyList.length + '条'}}</text>
+    </view>
+    <view class="action-buttons" wx:if="{{!isEmpty}}">
+      <button type="primary" size="mini" plain bindtap="exportHistory">导出</button>
+      <button type="warn" size="mini" plain bindtap="clearAllHistory">清空</button>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{isEmpty}}" class="empty-state">
+    <text class="empty-icon">📭</text>
+    <text class="empty-text">还没有检测记录</text>
+    <text class="empty-hint">完成检测后点击"保存结果"即可保存</text>
+  </view>
+
+  <!-- 历史记录列表 -->
+  <view wx:if="{{!isEmpty}}" class="history-list">
+    <view
+      wx:for="{{historyList}}"
+      wx:key="id"
+      class="history-item"
+    >
+      <!-- 记录卡片 -->
+      <view class="record-card" bindtap="viewDetail" data-index="{{index}}">
+        <!-- 时间标签 -->
+        <view class="time-badge">
+          <text class="date">{{item.formattedDate}}</text>
+          <text class="time">{{item.formattedTime}}</text>
+        </view>
+
+        <!-- 主要信息 -->
+        <view class="record-main">
+          <view class="agtron-display">
+            <text class="agtron-label">Agtron</text>
+            <text class="agtron-value">{{item.agtron}}</text>
+          </view>
+          
+          <view class="record-details">
+            <view class="detail-row">
+              <text class="detail-label">烘焙度</text>
+              <text class="detail-value">{{item.roastLevel}}</text>
+            </view>
+            <view class="detail-row">
+              <text class="detail-label">颜色</text>
+              <text class="detail-value">{{item.colorDetail}}</text>
+            </view>
+            <view class="detail-row">
+              <text class="detail-label">L*值</text>
+              <text class="detail-value">{{item.lStar}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 查看更多提示 -->
+        <view class="view-hint">
+          <text>点击查看详情 ›</text>
+        </view>
+      </view>
+
+      <!-- 删除按钮 -->
+      <view class="delete-btn" bindtap="deleteRecord" data-index="{{index}}" catchtap="deleteRecord">
+        <text>🗑️</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部提示 -->
+  <view wx:if="{{!isEmpty}}" class="footer-hint">
+    <text>最多保存100条记录，超出后自动删除最早的记录</text>
+  </view>
+</view>
+

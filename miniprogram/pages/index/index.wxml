@@ -1,0 +1,151 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-actions">
+    <view class="button-group">
+      <button class="btn-primary btn-small" bindtap="chooseImage">
+        <text>📷 拍照</text>
+      </button>
+      <button class="btn-primary btn-small" bindtap="chooseImageFromAlbum">
+        <text>🖼️ 相册</text>
+      </button>
+      <button class="btn-secondary btn-small" bindtap="viewHistory">
+        <text>📋 历史</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 图片选择区域 -->
+  <view class="image-section">
+    <view wx:if="{{!imagePath}}" class="image-placeholder">
+      <view class="placeholder-content">
+        <text class="placeholder-text">请选择咖啡豆图片开始检测</text>
+      </view>
+    </view>
+
+    <!-- 图片显示区域 -->
+    <view wx:if="{{imagePath}}" class="image-container">
+      <image
+        class="coffee-image"
+        src="{{imagePath}}"
+        mode="widthFix"
+        style="width: 100%;"
+        bindtap="onImageTap"
+        bindload="onImageLoad"
+        binderror="onImageError"
+      ></image>
+        
+      <!-- Canvas用于提取像素 -->
+      <canvas
+        type="2d"
+        id="imageCanvas"
+        class="hidden-canvas"
+        style="width: {{imageWidth}}px; height: {{imageHeight}}px;"
+      ></canvas>
+
+      <!-- 采样点标记 -->
+      <view class="sample-points">
+        <view
+          wx:for="{{samplePoints}}"
+          wx:key="index"
+          class="sample-point"
+          style="left: {{item.x}}px; top: {{item.y}}px;"
+          data-index="{{index}}"
+          bindtap="removeSamplePoint"
+        >
+          <view class="point-marker">{{index + 1}}</view>
+        </view>
+      </view>
+
+      <!-- 采样提示 -->
+      <view wx:if="{{samplePoints.length < 5}}" class="sample-hint">
+        <text>请在图片上点击选择采样点 ({{samplePoints.length}}/5)</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮区域 -->
+  <view wx:if="{{imagePath}}" class="action-section">
+    <button
+      wx:if="{{samplePoints.length < 5}}"
+      class="btn-secondary"
+      bindtap="clearAll"
+    >
+      重新开始
+    </button>
+    <button
+      wx:if="{{samplePoints.length === 5 && !result}}"
+      class="btn-primary"
+      bindtap="calculateResult"
+    >
+      计算烘焙度
+    </button>
+    <button
+      wx:if="{{samplePoints.length === 5}}"
+      class="btn-secondary"
+      bindtap="clearAll"
+    >
+      重新检测
+    </button>
+  </view>
+
+  <!-- 检测结果区域 -->
+  <view wx:if="{{result}}" id="result-section" class="result-section">
+    <view class="result-card">
+      <view class="result-header">
+        <text class="result-title">检测结果</text>
+      </view>
+      
+      <view class="result-content">
+        <view class="result-item main-result">
+          <text class="result-label">Agtron值</text>
+          <text class="result-value agtron-value">{{result.agtron}}</text>
+        </view>
+        
+        <view class="result-item">
+          <text class="result-label">烘焙度</text>
+          <text class="result-value">{{result.roastLevel}}</text>
+        </view>
+        
+        <view class="result-item">
+          <text class="result-label">颜色描述</text>
+          <text class="result-value">{{result.colorDetail}}</text>
+        </view>
+        
+        <view class="result-item">
+          <text class="result-label">平均L*值</text>
+          <text class="result-value">{{resultFormatted.lStar}}</text>
+        </view>
+      </view>
+
+      <!-- 采样点详细信息 -->
+      <view class="sample-details">
+        <text class="details-title">采样点详情</text>
+        <view
+          wx:for="{{samplePoints}}"
+          wx:key="index"
+          class="sample-detail-item"
+        >
+          <text class="detail-label">点{{index + 1}}:</text>
+          <text class="detail-value">{{item.labFormatted}}</text>
+        </view>
+      </view>
+
+      <!-- 保存按钮 -->
+      <view class="result-actions">
+        <button class="btn-primary" bindtap="saveResult">保存结果</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 使用提示 -->
+  <view class="tips-section">
+    <text class="tips-title">使用提示</text>
+    <text class="tips-content">
+      • 请在标准光照条件下拍摄咖啡豆图片\n
+      • 选择5个不同的采样点以获得更准确的结果\n
+      • 建议选择咖啡豆表面颜色均匀的区域
+    </text>
+  </view>
+
+</view>
