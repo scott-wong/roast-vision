@@ -18,14 +18,14 @@ interface UCCCPoint {
 
 // UCCC标准数据表（从UCCC.md提取的关键点）
 const UCCC_DATA: UCCCPoint[] = [
-  { lStar: 58.2, agtron: 100, roastLevel: '白色烘焙', colorDetail: '暗棕黄色' },
-  { lStar: 54.6, agtron: 98, roastLevel: '超浅烘', colorDetail: '浅黄棕色' },
-  { lStar: 50.8, agtron: 96, roastLevel: '超浅烘', colorDetail: '黄棕色' },
-  { lStar: 47.0, agtron: 94, roastLevel: '超浅烘', colorDetail: '暗黄棕色' },
-  { lStar: 43.4, agtron: 92, roastLevel: '超浅烘', colorDetail: '浅红棕色' },
-  { lStar: 40.0, agtron: 90, roastLevel: '超浅烘', colorDetail: '红棕色' },
-  { lStar: 36.9, agtron: 88, roastLevel: '超浅烘', colorDetail: '暗红棕色' },
-  { lStar: 33.9, agtron: 85, roastLevel: '浅烘', colorDetail: '浅棕色' },
+  { lStar: 58.2, agtron: 135, roastLevel: '白色烘焙', colorDetail: '暗棕黄色' },
+  { lStar: 54.6, agtron: 130, roastLevel: '超浅烘', colorDetail: '浅黄棕色' },
+  { lStar: 50.8, agtron: 125, roastLevel: '超浅烘', colorDetail: '黄棕色' },
+  { lStar: 47.0, agtron: 120, roastLevel: '超浅烘', colorDetail: '暗黄棕色' },
+  { lStar: 43.4, agtron: 115, roastLevel: '超浅烘', colorDetail: '浅红棕色' },
+  { lStar: 40.0, agtron: 110, roastLevel: '超浅烘', colorDetail: '红棕色' },
+  { lStar: 36.9, agtron: 105, roastLevel: '超浅烘', colorDetail: '暗红棕色' },
+  { lStar: 33.9, agtron: 100, roastLevel: '浅烘', colorDetail: '浅棕色' },
   { lStar: 31.1, agtron: 95, roastLevel: '浅烘', colorDetail: '棕色' }, // 极浅
   { lStar: 28.4, agtron: 85, roastLevel: '浅烘', colorDetail: '暗棕色' }, // 肉桂
   { lStar: 25.8, agtron: 80, roastLevel: '中烘', colorDetail: '浅深棕色' },
